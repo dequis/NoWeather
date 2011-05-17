@@ -53,9 +53,9 @@ public class NoWeather extends JavaPlugin
 		}
 		
 		pm.registerEvent( Event.Type.WORLD_LOAD, worldL, Event.Priority.Monitor, this );
-		pm.registerEvent( Event.Type.WEATHER_CHANGE, wL, Event.Priority.Highest, this );
-		pm.registerEvent( Event.Type.THUNDER_CHANGE, wL, Event.Priority.Highest, this );
-		pm.registerEvent( Event.Type.LIGHTNING_STRIKE, wL, Event.Priority.Highest, this );
+		pm.registerEvent( Event.Type.WEATHER_CHANGE, wL, Event.Priority.High, this );
+		pm.registerEvent( Event.Type.THUNDER_CHANGE, wL, Event.Priority.High, this );
+		pm.registerEvent( Event.Type.LIGHTNING_STRIKE, wL, Event.Priority.High, this );
 		
 		log.info( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
 	}

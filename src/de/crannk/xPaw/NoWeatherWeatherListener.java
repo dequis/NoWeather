@@ -14,25 +14,28 @@ public class NoWeatherWeatherListener extends WeatherListener
 		this.plugin = plugin;
 	}
 	
+	@Override
 	public void onWeatherChange( WeatherChangeEvent event )
 	{
-		if( event.toWeatherState() && plugin.isNodeDisabled( "disable-weather", event.getWorld().getName() ) )
+		if( !event.isCancelled() && event.toWeatherState() && plugin.isNodeDisabled( "disable-weather", event.getWorld().getName() ) )
 		{
 			event.setCancelled( true );
 		}
 	}
 	
+	@Override
 	public void onThunderChange( ThunderChangeEvent event )
 	{
-		if( event.toThunderState() && plugin.isNodeDisabled( "disable-thunder", event.getWorld().getName() ) )
+		if( !event.isCancelled() && event.toThunderState() && plugin.isNodeDisabled( "disable-thunder", event.getWorld().getName() ) )
 		{
 			event.setCancelled( true );
 		}
 	}
 	
+	@Override
 	public void onLightningStrike( LightningStrikeEvent event )
 	{
-		if( plugin.isNodeDisabled( "disable-lightning", event.getWorld().getName() ) )
+		if( !event.isCancelled() && plugin.isNodeDisabled( "disable-lightning", event.getWorld().getName() ) )
 		{
 			event.setCancelled( true );
 		}

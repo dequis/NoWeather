@@ -42,6 +42,7 @@ public class NoWeather extends JavaPlugin
 		
 		final NoWeatherWeatherListener wL = new NoWeatherWeatherListener( this );
 		final NoWeatherWorldListener worldL = new NoWeatherWorldListener( this );
+		final NoWeatherBlockListener blockL = new NoWeatherBlockListener( this );
 		final PluginManager pm = getServer().getPluginManager();
 		final PluginDescriptionFile pdfFile = this.getDescription();
 		
@@ -56,6 +57,7 @@ public class NoWeather extends JavaPlugin
 		pm.registerEvent( Event.Type.WEATHER_CHANGE, wL, Event.Priority.High, this );
 		pm.registerEvent( Event.Type.THUNDER_CHANGE, wL, Event.Priority.High, this );
 		pm.registerEvent( Event.Type.LIGHTNING_STRIKE, wL, Event.Priority.High, this );
+		pm.registerEvent( Event.Type.SNOW_FORM, blockL, Event.Priority.High, this );
 		
 		log.info( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
 	}

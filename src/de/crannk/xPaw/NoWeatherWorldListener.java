@@ -30,6 +30,7 @@ public class NoWeatherWorldListener extends WorldListener
 		Boolean disWeather   = plugin.isNodeDisabled( "disable-weather", worldName );
 		Boolean disThunder   = plugin.isNodeDisabled( "disable-thunder", worldName );
 		Boolean disLightning = plugin.isNodeDisabled( "disable-lightning", worldName );
+		Boolean disSnow      = plugin.isNodeDisabled( "disable-snow-accumulation", worldName );
 		
 		if( disWeather && world.hasStorm() )
 		{
@@ -50,6 +51,7 @@ public class NoWeatherWorldListener extends WorldListener
 		plugin.setConfigNode( "disable-weather", worldName, disWeather );
 		plugin.setConfigNode( "disable-thunder", worldName, disThunder );
 		plugin.setConfigNode( "disable-lightning", worldName, disLightning );
+		plugin.setConfigNode( "disable-snow-accumulation", worldName, disSnow );
 		plugin.config.save();
 	}
 }

@@ -14,8 +14,8 @@ import org.bukkit.util.config.Configuration;
 
 public class NoWeather extends JavaPlugin
 {
-	public Configuration config;
 	public final Logger log = Logger.getLogger( "Minecraft" );
+	public Configuration config;
 	
 	public void onEnable( )
 	{
@@ -57,7 +57,7 @@ public class NoWeather extends JavaPlugin
 		pm.registerEvent( Event.Type.WEATHER_CHANGE, wL, Event.Priority.High, this );
 		pm.registerEvent( Event.Type.THUNDER_CHANGE, wL, Event.Priority.High, this );
 		pm.registerEvent( Event.Type.LIGHTNING_STRIKE, wL, Event.Priority.High, this );
-		pm.registerEvent( Event.Type.SNOW_FORM, blockL, Event.Priority.High, this );
+		pm.registerEvent( Event.Type.BLOCK_FORM, blockL, Event.Priority.High, this );
 		
 		log.info( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
 	}

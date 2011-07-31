@@ -1,7 +1,8 @@
 package de.crannk.xPaw;
 
+import org.bukkit.Material;
+import org.bukkit.event.block.BlockFormEvent;
 import org.bukkit.event.block.BlockListener;
-import org.bukkit.event.block.SnowFormEvent;
 
 public class NoWeatherBlockListener extends BlockListener
 {
@@ -13,9 +14,11 @@ public class NoWeatherBlockListener extends BlockListener
 	}
 	
 	@Override
-	public void onSnowForm( SnowFormEvent event )
+	public void onBlockForm( BlockFormEvent event )
 	{
-		if( !event.isCancelled() && plugin.isNodeDisabled( "disable-snow-accumulation", event.getBlock().getWorld().getName() ) )
+		if( !event.isCancelled()
+		&& event.getNewState().getType() == Material.ICE
+		&& plugin.isNodeDisabled( "disable-snow-accumulation", event.getBlock().getWorld().getName() ) )
 		{
 			event.setCancelled( true );
 		}

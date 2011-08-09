@@ -1,4 +1,4 @@
-package de.crannk.xPaw;
+package ru.xPaw;
 
 import org.bukkit.Material;
 import org.bukkit.event.block.BlockFormEvent;

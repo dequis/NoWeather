@@ -1,4 +1,4 @@
-package de.crannk.xPaw;
+package ru.xPaw;
 
 import org.bukkit.event.weather.LightningStrikeEvent;
 import org.bukkit.event.weather.ThunderChangeEvent;

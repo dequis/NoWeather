@@ -1,4 +1,4 @@
-package de.crannk.xPaw;
+package ru.xPaw;
 
 import org.bukkit.World;
 import org.bukkit.event.world.WorldListener;

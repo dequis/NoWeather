@@ -1,4 +1,4 @@
-package de.crannk.xPaw;
+package ru.xPaw;
 
 import java.io.File;
 import java.io.IOException;

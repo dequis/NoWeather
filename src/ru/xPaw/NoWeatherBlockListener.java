@@ -17,10 +17,15 @@ public class NoWeatherBlockListener extends BlockListener
 	public void onBlockForm( BlockFormEvent event )
 	{
 		if( !event.isCancelled()
-		&& event.getNewState().getType() == Material.ICE
 		&& plugin.isNodeDisabled( "disable-snow-accumulation", event.getBlock().getWorld().getName() ) )
 		{
-			event.setCancelled( true );
+			Material mat = event.getNewState().getType();
+			
+			// Quite useless check right now, but let's be safe
+			if( mat == Material.ICE || mat == Material.SNOW )
+			{
+				event.setCancelled( true );
+			}
 		}
 	}
 }

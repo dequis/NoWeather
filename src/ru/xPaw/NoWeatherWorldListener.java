@@ -22,7 +22,7 @@ public class NoWeatherWorldListener extends WorldListener
 	{
 		String worldName = world.getName();
 		
-		if( !plugin.config.getKeys( null ).contains( worldName ) )
+		if( !plugin.config.contains( worldName ) )
 		{
 			plugin.log.info( "[NoWeather] " + worldName + " - no configuration, generating defaults." );
 		}

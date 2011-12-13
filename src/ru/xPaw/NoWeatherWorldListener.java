@@ -15,7 +15,7 @@ public class NoWeatherWorldListener extends WorldListener
 	
 	public void onWorldLoad( WorldLoadEvent event )
 	{
-		WorldLoaded( event.getWorld() );
+		WorldLoaded( event.getWorld( ) );
 	}
 	
 	public void WorldLoaded( World world )
@@ -32,13 +32,13 @@ public class NoWeatherWorldListener extends WorldListener
 		Boolean disLightning = plugin.isNodeDisabled( "disable-lightning", worldName );
 		Boolean disSnow      = plugin.isNodeDisabled( "disable-snow-accumulation", worldName );
 		
-		if( disWeather && world.hasStorm() )
+		if( disWeather && world.hasStorm( ) )
 		{
 			world.setStorm( false );
 			plugin.log.info( "[NoWeather] Stopped storm in " + worldName );
 		}
 		
-		if( disThunder && world.isThundering() )
+		if( disThunder && world.isThundering( ) )
 		{
 			world.setThundering( false );
 			plugin.log.info( "[NoWeather] Stopped thunder in " + worldName );
@@ -52,6 +52,6 @@ public class NoWeatherWorldListener extends WorldListener
 		plugin.setConfigNode( "disable-thunder", worldName, disThunder );
 		plugin.setConfigNode( "disable-lightning", worldName, disLightning );
 		plugin.setConfigNode( "disable-snow-accumulation", worldName, disSnow );
-		plugin.config.save();
+		plugin.saveConfig( );
 	}
 }

@@ -13,11 +13,9 @@ public class NoWeatherBlockListener extends BlockListener
 		this.plugin = plugin;
 	}
 	
-	@Override
 	public void onBlockForm( BlockFormEvent event )
 	{
-		if( !event.isCancelled()
-		&& plugin.isNodeDisabled( "disable-snow-accumulation", event.getBlock().getWorld().getName() ) )
+		if( !event.isCancelled( ) && plugin.isNodeDisabled( "disable-snow-accumulation", event.getBlock( ).getWorld( ).getName( ) ) )
 		{
 			Material mat = event.getNewState().getType();
 			

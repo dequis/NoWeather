@@ -1,15 +1,15 @@
-package ru.xPaw;
+package ru.xPaw.NoWeather;
 
 import org.bukkit.event.weather.LightningStrikeEvent;
 import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.event.weather.WeatherListener;
 
-public class NoWeatherWeatherListener extends WeatherListener
+public class _WeatherListener extends WeatherListener
 {
-	private NoWeather plugin;
+	private Main plugin;
 	
-	public NoWeatherWeatherListener( NoWeather plugin )
+	public _WeatherListener( Main plugin )
 	{
 		this.plugin = plugin;
 	}

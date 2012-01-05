@@ -1,5 +1,5 @@
 name: NoWeather
-main: ru.xPaw.NoWeather
-version: 1.7
+main: ru.xPaw.NoWeather.Main
+version: 1.7.1
 description: Disable weather
 author: xPaw

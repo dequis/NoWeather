@@ -1,14 +1,14 @@
-package ru.xPaw;
+package ru.xPaw.NoWeather;
 
 import org.bukkit.Material;
 import org.bukkit.event.block.BlockFormEvent;
 import org.bukkit.event.block.BlockListener;
 
-public class NoWeatherBlockListener extends BlockListener
+public class _BlockListener extends BlockListener
 {
-	private NoWeather plugin;
+	private Main plugin;
 
-	public NoWeatherBlockListener( NoWeather plugin )
+	public _BlockListener( Main plugin )
 	{
 		this.plugin = plugin;
 	}

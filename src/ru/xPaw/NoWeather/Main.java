@@ -1,4 +1,4 @@
-package ru.xPaw;
+package ru.xPaw.NoWeather;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -10,7 +10,9 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class NoWeather extends JavaPlugin
+import com.randomappdev.pluginstats.Ping;
+
+public class Main extends JavaPlugin
 {
 	public final Logger log = Logger.getLogger( "Minecraft" );
 	public FileConfiguration config;
@@ -19,12 +21,12 @@ public class NoWeather extends JavaPlugin
 	{
 		config = getConfig( );
 		
-		final NoWeatherWeatherListener wL = new NoWeatherWeatherListener( this );
-		final NoWeatherWorldListener worldL = new NoWeatherWorldListener( this );
-		final NoWeatherBlockListener blockL = new NoWeatherBlockListener( this );
+		final _WeatherListener wL = new _WeatherListener( this );
+		final _WorldListener worldL = new _WorldListener( this );
+		final _BlockListener blockL = new _BlockListener( this );
 		
 		final PluginManager pm = getServer( ).getPluginManager( );
-		final PluginDescriptionFile pdfFile = this.getDescription( );
+		final PluginDescriptionFile pdf = this.getDescription( );
 		
 		List<World> worlds = getServer( ).getWorlds( );
 		
@@ -39,7 +41,9 @@ public class NoWeather extends JavaPlugin
 		pm.registerEvent( Event.Type.LIGHTNING_STRIKE, wL, Event.Priority.High, this );
 		pm.registerEvent( Event.Type.BLOCK_FORM, blockL, Event.Priority.High, this );
 		
-		log.info( pdfFile.getName( ) + " version " + pdfFile.getVersion( ) + " is enabled!" );
+		log.info( pdf.getName( ) + " version " + pdf.getVersion( ) + " is enabled!" );
+		
+		new Ping( ).init( this );
 	}
 	
 	public void onDisable( )

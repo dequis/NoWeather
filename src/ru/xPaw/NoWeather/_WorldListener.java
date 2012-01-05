@@ -1,14 +1,14 @@
-package ru.xPaw;
+package ru.xPaw.NoWeather;
 
 import org.bukkit.World;
 import org.bukkit.event.world.WorldListener;
 import org.bukkit.event.world.WorldLoadEvent;
 
-public class NoWeatherWorldListener extends WorldListener
+public class _WorldListener extends WorldListener
 {
-	private NoWeather plugin;
+	private Main plugin;
 	
-	public NoWeatherWorldListener( NoWeather plugin )
+	public _WorldListener( Main plugin )
 	{
 		this.plugin = plugin;
 	}

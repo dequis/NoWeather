@@ -27,7 +27,7 @@ public class EventListener implements Listener
 		
 		for( World world : worlds )
 		{
-			WorldLoaded( world );
+			worldLoaded( world );
 		}
 	}
 	
@@ -61,12 +61,12 @@ public class EventListener implements Listener
 	@EventHandler( priority = EventPriority.HIGHEST )
 	public void onBlockForm( BlockFormEvent event )
 	{
-		if( !event.isCancelled( ) && plugin.isNodeDisabled( "disable-snow-accumulation", event.getBlock( ).getWorld( ).getName( ) ) )
+		if( !event.isCancelled( ) )
 		{
-			Material mat = event.getNewState().getType();
+			Material mat = event.getNewState( ).getType( );
 			
-			// Quite useless check right now, but let's be safe
-			if( mat == Material.ICE || mat == Material.SNOW )
+			if( ( mat == Material.ICE  && plugin.isNodeDisabled( "disable-ice-accumulation", event.getBlock( ).getWorld( ).getName( ) ) )
+			||  ( mat == Material.SNOW && plugin.isNodeDisabled( "disable-snow-accumulation", event.getBlock( ).getWorld( ).getName( ) ) ) )
 			{
 				event.setCancelled( true );
 			}
@@ -76,21 +76,22 @@ public class EventListener implements Listener
 	@EventHandler( priority = EventPriority.MONITOR )
 	public void onWorldLoad( WorldLoadEvent event )
 	{
-		WorldLoaded( event.getWorld( ) );
+		worldLoaded( event.getWorld( ) );
 	}
 	
-	public void WorldLoaded( World world )
+	public void worldLoaded( World world )
 	{
-		String worldName = world.getName();
+		String worldName = world.getName( );
 		
 		if( !plugin.config.contains( worldName ) )
 		{
-			plugin.getLogger( ).info( worldName + " - no configuration, generating defaults." );
+			plugin.getLogger( ).info( worldName + " - no configuration, generating defaults" );
 		}
 		
 		Boolean disWeather   = plugin.isNodeDisabled( "disable-weather", worldName );
 		Boolean disThunder   = plugin.isNodeDisabled( "disable-thunder", worldName );
 		Boolean disLightning = plugin.isNodeDisabled( "disable-lightning", worldName );
+		Boolean disIce       = plugin.isNodeDisabled( "disable-ice-accumulation", worldName );
 		Boolean disSnow      = plugin.isNodeDisabled( "disable-snow-accumulation", worldName );
 		
 		if( disWeather && world.hasStorm( ) )
@@ -105,13 +106,10 @@ public class EventListener implements Listener
 			plugin.getLogger( ).info( "Stopped thunder in " + worldName );
 		}
 		
-		//plugin.getLogger( ).info( worldName + " - Weather  : " + disWeather.toString() );
-		//plugin.getLogger( ).info( worldName + " - Thunder  : " + disThunder.toString() );
-		//plugin.getLogger( ).info( worldName + " - Lightning: " + disLightning.toString() );
-		
 		plugin.setConfigNode( "disable-weather", worldName, disWeather );
 		plugin.setConfigNode( "disable-thunder", worldName, disThunder );
 		plugin.setConfigNode( "disable-lightning", worldName, disLightning );
+		plugin.setConfigNode( "disable-ice-accumulation", worldName, disIce );
 		plugin.setConfigNode( "disable-snow-accumulation", worldName, disSnow );
 		plugin.saveConfig( );
 	}

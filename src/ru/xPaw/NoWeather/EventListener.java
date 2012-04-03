@@ -31,49 +31,47 @@ public class EventListener implements Listener
 		}
 	}
 	
-	@EventHandler( priority = EventPriority.HIGHEST )
+	@EventHandler( priority = EventPriority.HIGHEST, ignoreCancelled = true )
 	public void onWeatherChange( WeatherChangeEvent event )
 	{
-		if( !event.isCancelled( ) && event.toWeatherState( ) && plugin.isNodeDisabled( "disable-weather", event.getWorld( ).getName( ) ) )
+		if( event.toWeatherState( ) && plugin.isNodeDisabled( "disable-weather", event.getWorld( ).getName( ) ) )
 		{
 			event.setCancelled( true );
 		}
 	}
 	
-	@EventHandler( priority = EventPriority.HIGHEST )
+	@EventHandler( priority = EventPriority.HIGHEST, ignoreCancelled = true )
 	public void onThunderChange( ThunderChangeEvent event )
 	{
-		if( !event.isCancelled( ) && event.toThunderState( ) && plugin.isNodeDisabled( "disable-thunder", event.getWorld( ).getName( ) ) )
+		if( event.toThunderState( ) && plugin.isNodeDisabled( "disable-thunder", event.getWorld( ).getName( ) ) )
 		{
 			event.setCancelled( true );
 		}
 	}
 	
-	@EventHandler( priority = EventPriority.HIGHEST )
+	@EventHandler( priority = EventPriority.HIGHEST, ignoreCancelled = true )
 	public void onLightningStrike( LightningStrikeEvent event )
 	{
-		if( !event.isCancelled( ) && plugin.isNodeDisabled( "disable-lightning", event.getWorld( ).getName( ) ) )
+		if( plugin.isNodeDisabled( "disable-lightning", event.getWorld( ).getName( ) ) )
 		{
 			event.setCancelled( true );
 		}
 	}
 	
-	@EventHandler( priority = EventPriority.HIGHEST )
+	@EventHandler( priority = EventPriority.HIGHEST, ignoreCancelled = true )
 	public void onBlockForm( BlockFormEvent event )
 	{
-		if( !event.isCancelled( ) )
+		Material mat     = event.getNewState( ).getType( );
+		String worldName = event.getBlock( ).getWorld( ).getName( );
+		
+		if( ( mat == Material.ICE  && plugin.isNodeDisabled( "disable-ice-accumulation", worldName ) )
+		||  ( mat == Material.SNOW && plugin.isNodeDisabled( "disable-snow-accumulation", worldName ) ) )
 		{
-			Material mat = event.getNewState( ).getType( );
-			
-			if( ( mat == Material.ICE  && plugin.isNodeDisabled( "disable-ice-accumulation", event.getBlock( ).getWorld( ).getName( ) ) )
-			||  ( mat == Material.SNOW && plugin.isNodeDisabled( "disable-snow-accumulation", event.getBlock( ).getWorld( ).getName( ) ) ) )
-			{
-				event.setCancelled( true );
-			}
+			event.setCancelled( true );
 		}
 	}
 	
-	@EventHandler( priority = EventPriority.MONITOR )
+	@EventHandler( priority = EventPriority.MONITOR, ignoreCancelled = true )
 	public void onWorldLoad( WorldLoadEvent event )
 	{
 		worldLoaded( event.getWorld( ) );

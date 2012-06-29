@@ -4,10 +4,15 @@ import java.util.List;
 
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFormEvent;
+import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.weather.LightningStrikeEvent;
 import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
@@ -57,6 +62,29 @@ public class EventListener implements Listener
 			event.setCancelled( true );
 		}
 	}
+
+	@EventHandler( priority = EventPriority.HIGHEST, ignoreCancelled = true )
+	public void onBlockIgnite( BlockIgniteEvent event )
+	{
+		if( ( event.getCause( ).equals( BlockIgniteEvent.IgniteCause.LIGHTNING ) )
+		&&  ( plugin.isNodeDisabled( "disable-lightning-fire", event.getBlock( ).getWorld( ).getName( ) ) ) ) {
+			event.setCancelled( true );
+		}
+		final Location fireLocation = event.getBlock( ).getLocation( );
+
+		// Workaround a client side bug where the fire never disappears
+		for ( Player player : Bukkit.getOnlinePlayers( ) ) {
+			player.sendBlockChange( fireLocation, Material.FIRE, (byte) 0 );
+		}
+		plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+			public void run() {
+				for ( Player player : Bukkit.getOnlinePlayers( ) ) {
+					player.sendBlockChange( fireLocation, Material.AIR, (byte) 0 );
+				}
+			}
+		}, 10L);
+
+	}
 	
 	@EventHandler( priority = EventPriority.HIGHEST, ignoreCancelled = true )
 	public void onBlockForm( BlockFormEvent event )
@@ -89,6 +117,7 @@ public class EventListener implements Listener
 		Boolean disWeather   = plugin.isNodeDisabled( "disable-weather", worldName );
 		Boolean disThunder   = plugin.isNodeDisabled( "disable-thunder", worldName );
 		Boolean disLightning = plugin.isNodeDisabled( "disable-lightning", worldName );
+		Boolean disFire      = plugin.isNodeDisabled( "disable-lightning-fire", worldName );
 		Boolean disIce       = plugin.isNodeDisabled( "disable-ice-accumulation", worldName );
 		Boolean disSnow      = plugin.isNodeDisabled( "disable-snow-accumulation", worldName );
 		
@@ -107,6 +136,7 @@ public class EventListener implements Listener
 		plugin.setConfigNode( "disable-weather", worldName, disWeather );
 		plugin.setConfigNode( "disable-thunder", worldName, disThunder );
 		plugin.setConfigNode( "disable-lightning", worldName, disLightning );
+		plugin.setConfigNode( "disable-lightning-fire", worldName, disFire );
 		plugin.setConfigNode( "disable-ice-accumulation", worldName, disIce );
 		plugin.setConfigNode( "disable-snow-accumulation", worldName, disSnow );
 		plugin.saveConfig( );
